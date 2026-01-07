@@ -3,6 +3,10 @@
     {
       "source": "/api/list-music",
       "destination": "/api/list-music.js"
+    },
+    {
+      "source": "/",
+      "destination": "/index.html"
     }
   ],
   "headers": [
@@ -22,5 +26,9 @@
   ],
   "buildCommand": "npm run build",
   "outputDirectory": "public",
-  "framework": null
+  "framework": null,
+  "installCommand": "npm install",
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
