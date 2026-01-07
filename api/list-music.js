@@ -36,21 +36,13 @@ module.exports = async (req, res) => {
       headers['Authorization'] = `token ${GITHUB_TOKEN}`;
     }
 
-    // 构建API URL - 处理MUSIC_PATH为空的情况
-    let apiUrl;
-    if (MUSIC_PATH && MUSIC_PATH.trim() !== '') {
-      apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/${MUSIC_PATH}?ref=${BRANCH}`;
-    } else {
-      apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents?ref=${BRANCH}`;
-    }
-    
-    console.log(`API URL: ${apiUrl}`);
+    // 获取仓库内容
+    const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/${MUSIC_PATH}?ref=${BRANCH}`;
     const response = await fetch(apiUrl, { headers });
 
     if (!response.ok) {
       return res.status(response.status).json({
-        error: `GitHub API 错误: ${response.status} ${response.statusText}`,
-        url: apiUrl
+        error: `GitHub API 错误: ${response.status} ${response.statusText}`
       });
     }
 
@@ -76,7 +68,7 @@ module.exports = async (req, res) => {
         name: '根目录',
         path: MUSIC_PATH || '',
         tracks: rootMusicFiles.map(file => {
-          const rawUrl = `https://raw.githubusercontent.com/${GITHUB_REPO}/${BRANCH}/${MUSIC_PATH || ''}${MUSIC_PATH ? '/' : ''}${encodeURIComponent(file.name)}`;
+          const rawUrl = `https://raw.githubusercontent.com/${GITHUB_REPO}/${BRANCH}/${MUSIC_PATH}/${encodeURIComponent(file.name)}`;
           
           return {
             name: file.name,
