@@ -1,11 +1,12 @@
 {
   "name": "vercel-music-player",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Modern music player website for GitHub music files with lyrics and album support",
   "main": "index.js",
   "scripts": {
     "build": "node lib/generate-index.js",
-    "dev": "vercel dev"
+    "dev": "vercel dev",
+    "start": "npm run build && vercel dev"
   },
   "dependencies": {
     "node-fetch": "^2.6.7"
